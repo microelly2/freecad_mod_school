@@ -1,7 +1,7 @@
 #***************************************************************************
 #*                                                                         *
 #*   Copyright (c) 2014                                                    *  
-#*   Thomas <thomas@freecadbuch.de>                             *  
+#*   Thomas Gundermann <thomas@freecadbuch.de>                             * 
 #*                                                                         *
 #*   This program is free software; you can redistribute it and/or modify  *
 #*   it under the terms of the GNU Lesser General Public License (LGPL)    *

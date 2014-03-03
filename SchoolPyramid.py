@@ -1,7 +1,7 @@
 #***************************************************************************
 #*                                                                         *
-#*   Copyright (c) 2012                                                    *  
-#*   Yorik van Havre <yorik@uncreated.net>                                 *  
+#*   Copyright (c) 2014                                                    *  
+#*   Thomas Gundermann <thomas@freecadbuch.de>                             * 
 #*                                                                         *
 #*   This program is free software; you can redistribute it and/or modify  *
 #*   it under the terms of the GNU Lesser General Public License (LGPL)    *
@@ -21,8 +21,17 @@
 #*                                                                         *
 #***************************************************************************
 
+def say(s):
+		FreeCAD.Console.PrintMessage(str(s)+"\n")
+
+
 import FreeCAD,Draft,ArchComponent, DraftVecUtils
 from FreeCAD import Vector
+import math
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+from math import sqrt, pi, sin, cos, asin
+from FreeCAD import Base
+
 if FreeCAD.GuiUp:
     import FreeCADGui
     from PySide import QtCore, QtGui
@@ -32,21 +41,58 @@ else:
         return txt
 
 __title__="FreeCAD Pyramid"
-__author__ = "Yorik van Havre/thomas gundermann"
-__url__ = "http://www.freecadweb.org"
+__author__ = "thomas gundermann"
+__url__ = "http://www.freecadbuch.de"
 
-def makePyramid(baseobj=None,facenr=1,angle=45,name=translate("Arch","Pyramid")):
+#---------------------
+
+def vieleck(anz,size,hoehe): # regelmaesiges vieleck berechnen
+	list1=[]
+	for p in range(anz):
+		punkt=( size*cos(2*math.pi *p/anz),size*sin(2*math.pi*p/anz),hoehe)
+		list1.append(punkt)
+	#	say(punkt)
+	
+	p=0
+	punkt=( size*cos(2*math.pi *p/anz),size*sin(2*math.pi*p/anz),hoehe)
+	list1.append(punkt)
+#	say(list1)
+	return list1
+
+def gen_pyramidenstumpf(count=8,size_bottom = 60, size_top=20, height=60):
+
+	list1=vieleck(count,size_bottom,0)
+	list2=vieleck(count,size_top,height)
+	
+	poly1 = Part.makePolygon( list1)
+	poly2 = Part.makePolygon( list2)
+	face1 = Part.Face(poly1)
+	face2 = Part.Face(poly2)
+	faceListe=[face1,face2]
+	
+	for i in range(len(list1)-1):
+		liste3=[list1[i],list1[i+1],list2[i+1],list2[i],list1[i]]
+		poly=Part.makePolygon(liste3)
+		face = Part.Face(poly)
+		faceListe.append(face)
+	#	say(i);say(poly);say(faceListe)
+	
+	myShell = Part.makeShell(faceListe)   
+	mySolid = Part.makeSolid(myShell)
+	return mySolid
+
+#----------------------
+def makePyramid(count=8,size_bottom = 60, size_top=20, height=60,name=translate("Arch","Pyramid")):
     '''makePyramid(baseobj,[facenr],[angle],[name]) : Makes a Pyramid based on a
-    face from an existing object. You can provide the number of the face
-    to build the Pyramid on (default = 1), the angle (default=45) and a name (default
+    regular polygon with count(8) vertexes face and a name (default
     = Pyramid).'''
     obj = FreeCAD.ActiveDocument.addObject("Part::FeaturePython",name)
     _Pyramid(obj)
     _ViewProviderPyramid(obj.ViewObject)
-    if baseobj:
-        obj.Base = baseobj
-    obj.Face = facenr
-    obj.Angle = angle
+    obj.count=count
+    obj.size_bottom=size_bottom
+    obj.size_top=size_top
+    obj.height=height
     return obj
 
 class _CommandPyramid:
@@ -55,98 +101,34 @@ class _CommandPyramid:
 	App=FreeCAD
 	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/pyramid.svg', 'MenuText': 'Pyramide', 'ToolTip': 'Erzeugt eine Pyramide fuer eine Grundflaeche'} 
 
-
-
     def Activated(self):
-        sel = FreeCADGui.Selection.getSelectionEx()
-        if sel:
-            sel = sel[0]
-            obj = sel.Object
-            FreeCADGui.Control.closeDialog()
-            if sel.HasSubObjects:
-                if "Face" in sel.SubElementNames[0]:
-                    idx = int(sel.SubElementNames[0][4:])
-                    FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
-                    FreeCADGui.doCommand("import School")
-                    FreeCADGui.doCommand("School.makePyramid(FreeCAD.ActiveDocument."+obj.Name+","+str(idx)+")")
-                    FreeCAD.ActiveDocument.commitTransaction()
-                    FreeCAD.ActiveDocument.recompute()
-                    return
-            if obj.isDerivedFrom("Part::Feature"):
-                if obj.Shape.Wires:
-                    FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
-                    FreeCADGui.doCommand("import School")
-                    FreeCADGui.doCommand("School.makePyramid(FreeCAD.ActiveDocument."+obj.Name+")")
-                    FreeCAD.ActiveDocument.commitTransaction()
-                    FreeCAD.ActiveDocument.recompute()
-                    return
-            else:
-                FreeCAD.Console.PrintMessage(translate("Arch","Unable to create a Pyramid"))
-        else:
-            FreeCAD.Console.PrintMessage(translate("Arch","Please select a base object\n"))
-            FreeCADGui.Control.showDialog(ArchComponent.SelectionTaskPanel())
-            FreeCAD.ArchObserver = ArchComponent.ArchSelectionObserver(nextCommand="Arch_Pyramid")
-            FreeCADGui.Selection.addObserver(FreeCAD.ArchObserver)
+        FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
+        FreeCADGui.doCommand("import School")
+        FreeCADGui.doCommand("School.makePyramid()")
+        FreeCAD.ActiveDocument.commitTransaction()
+        FreeCAD.ActiveDocument.recompute()
+	return
        
 class _Pyramid(ArchComponent.Component):
     "The Pyramid object"
 
     def __init__(self,obj):
         ArchComponent.Component.__init__(self,obj)
-        obj.addProperty("App::PropertyAngle","Angle","Base",
-                        translate("Arch","The angle of this Pyramid"))
-        obj.addProperty("App::PropertyInteger","Face","Base",
-                        translate("Arch","The face number of the base object used to build this Pyramid"))
+        obj.addProperty("App::PropertyInteger","count","Base",
+                        translate("Arch","Anzahl Ecken"))
+        obj.addProperty("App::PropertyInteger","size_bottom","Base",
+                        translate("Arch","Bodenmas"))
+        obj.addProperty("App::PropertyInteger","size_top","Base",
+                        translate("Arch","Deckelmas"))
+        obj.addProperty("App::PropertyInteger","height","Base",
+                        translate("Arch","hoch"))
         self.Type = "Pyramid"
-        
+
+
     def execute(self,obj):
-        import Part, math, DraftGeomUtils
-        pl = obj.Placement
-        self.baseface = None
+	obj.Shape=gen_pyramidenstumpf(obj.count,obj.size_bottom,obj.size_top,obj.height)
 
-        base = None
-        if obj.Base and obj.Angle:
-            w = None
-            if obj.Base.isDerivedFrom("Part::Feature"):
-                if (obj.Base.Shape.Faces and obj.Face):
-                    w = obj.Base.Shape.Faces[obj.Face-1].Wires[0]
-                elif obj.Base.Shape.Wires:
-                    w = obj.Base.Shape.Wires[0]
-            if w:
-                if w.isClosed():
-                    f = Part.Face(w)
-                    self.baseface = f.copy()
-                    norm = f.normalAt(0,0)
-                    c = round(math.tan(math.radians(obj.Angle)),Draft.precision())
-                    d = f.BoundBox.DiagonalLength
-                    edges = DraftGeomUtils.sortEdges(f.Edges)
-                    l = len(edges)
-                    edges.append(edges[0])
-                    shps = []
-                    for i in range(l):
-                        v = DraftGeomUtils.vec(DraftGeomUtils.angleBisection(edges[i],edges[i+1]))
-                        v.normalize()
-                        bis = v.getAngle(DraftGeomUtils.vec(edges[i]))
-                        delta = 1/math.cos(bis)
-                        v.multiply(delta)
-                        n = (FreeCAD.Vector(norm)).multiply(c)
-                        dv = v.add(n)
-                        dv.normalize()
-                        dv.scale(d,d,d)
-                        shps.append(f.extrude(dv))
-                    base = shps.pop()
-                    for s in shps:
-                        base = base.common(s)
-                    base = base.removeSplitter()
-                    if not base.isNull():
-                        if not DraftGeomUtils.isNull(pl):
-                            base.Placement = pl
-                            
-        base = self.processSubShapes(obj,base)
-        if base:
-            if not base.isNull():
-                obj.Shape = base
-
+#---------------------------------- wozu dies #+#
     def getSubVolume(self,obj,extension=10000):
         "returns a volume to be subtracted"
         if hasattr(self,"baseface"):
@@ -155,20 +137,23 @@ class _Pyramid(ArchComponent.Component):
                 norm = DraftVecUtils.scaleTo(norm,extension)
                 return self.baseface.extrude(norm)
         return None
-
         
 
 class _ViewProviderPyramid(ArchComponent.ViewProviderComponent):
     "A View Provider for the Pyramid object"
 
     def __init__(self,vobj):
+#	say("__init")
+#	say(self)
+#	say(vobj)
+# 		
         ArchComponent.ViewProviderComponent.__init__(self,vobj)
 
-    def getIcon(self):
-        import Arch_rc
-        return ":/icons/Arch_Pyramid_Tree.svg"
-        #return  App.getHomePath() +"Mod/icons/pyramid.svg'
-	#return {'Pixmap' :  App.getHomePath() +'/Mod/icons/pyramid.svg', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
+#    def getIcon(self):
+#        import Arch_rc
+#        return ":/icons/Arch_Pyramid_Tree.svg"
+#        #return  App.getHomePath() +"Mod/icons/pyramid.svg'
+#	#return {'Pixmap' :  App.getHomePath() +'/Mod/icons/pyramid.svg', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
 
 
 

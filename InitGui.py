@@ -310,7 +310,7 @@ static char * school_xpm[] = {
 		self.appendMenu(translate("arch","&Draft"),self.drafttools+self.draftmodtools+self.extramodtools)
 		self.appendMenu([translate("arch","&Draft"),translate("arch","Context Tools")],self.draftcontexttools)
 		self.appendMenu([translate("arch","&Draft"),translate("arch","Utilities")],self.draftutils)
-		self.appendMenu([translate("arch","&Draft"),translate("arch","Snapping")],self.snapList)
+		## self.appendMenu([translate("arch","&Draft"),translate("arch","Snapping")],self.snapList)
 		FreeCADGui.addIconPath(":/icons")
 		FreeCADGui.addLanguagePath(":/translations")
 		FreeCADGui.addPreferencePage(":/ui/archprefs-base.ui","Arch")
