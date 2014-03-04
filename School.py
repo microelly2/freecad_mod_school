@@ -31,4 +31,5 @@ if FreeCAD.GuiUp:
 	FreeCADGui.updateLocale()
 
 from SchoolPyramid import *
+from SchoolPrism import *
 

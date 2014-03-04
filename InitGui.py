@@ -272,7 +272,7 @@ static char * school_xpm[] = {
 
         # school tools
         self.schooltools = [ 	
-				"School_Pyramid", 
+				"School_Pyramid", "School_Prism"
 
 			]
         self.utilities = [
