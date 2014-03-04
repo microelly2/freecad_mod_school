@@ -45,6 +45,8 @@ __author__ = "thomas gundermann"
 __url__ = "http://www.freecadbuch.de"
 
 #---------------------
+def say(s):
+		FreeCAD.Console.PrintMessage(str(s)+"\n")
 
 def vieleck(anz,size,hoehe): # regelmaesiges vieleck berechnen
 	list1=[]
@@ -59,10 +61,10 @@ def vieleck(anz,size,hoehe): # regelmaesiges vieleck berechnen
 #	say(list1)
 	return list1
 
-def gen_Prismenstumpf(count=8,size_bottom = 60, size_top=20, height=60):
+def gen_Prismenstumpf(count=8,size_bottom = 60,  height=60):
 
 	list1=vieleck(count,size_bottom,0)
-	list2=vieleck(count,size_top,height)
+	list2=vieleck(count,size_bottom,height)
 	
 	poly1 = Part.makePolygon( list1)
 	poly2 = Part.makePolygon( list2)
@@ -82,7 +84,7 @@ def gen_Prismenstumpf(count=8,size_bottom = 60, size_top=20, height=60):
 	return mySolid
 
 #----------------------
-def makePrism(count=8,size_bottom = 60, size_top=20, height=60,name=translate("Arch","Prism")):
+def makePrism(count=8,size_bottom = 60, height=60,name=translate("Arch","Prism")):
     '''makePrism(baseobj,[facenr],[angle],[name]) : Makes a Prism based on a
     regular polygon with count(8) vertexes face and a name (default
     = Prism).'''
@@ -91,7 +93,6 @@ def makePrism(count=8,size_bottom = 60, size_top=20, height=60,name=translate("A
     _ViewProviderPrism(obj.ViewObject)
     obj.count=count
     obj.size_bottom=size_bottom
-    obj.size_top=size_top
     obj.height=height
     return obj
 
@@ -102,12 +103,15 @@ class _CommandPrism:
 	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
 
     def Activated(self):
-        FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Prism"))
-        FreeCADGui.doCommand("import School")
-        FreeCADGui.doCommand("School.makePrism()")
-        FreeCAD.ActiveDocument.commitTransaction()
-        FreeCAD.ActiveDocument.recompute()
-	return
+		if FreeCADGui.ActiveDocument:
+			FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Prism"))
+			FreeCADGui.doCommand("import School")
+			FreeCADGui.doCommand("School.makePrism()")
+			FreeCAD.ActiveDocument.commitTransaction()
+			FreeCAD.ActiveDocument.recompute()
+		else:
+			say("Erst Arbeitsbereich oeffnen")
+		return
        
 class _Prism(ArchComponent.Component):
     "The Prism object"
@@ -118,15 +122,13 @@ class _Prism(ArchComponent.Component):
                         translate("Arch","Anzahl Ecken"))
         obj.addProperty("App::PropertyInteger","size_bottom","Base",
                         translate("Arch","Bodenmas"))
-        obj.addProperty("App::PropertyInteger","size_top","Base",
-                        translate("Arch","Deckelmas"))
         obj.addProperty("App::PropertyInteger","height","Base",
                         translate("Arch","hoch"))
         self.Type = "Prism"
 
 
     def execute(self,obj):
-	obj.Shape=gen_Prismenstumpf(obj.count,obj.size_bottom,obj.size_top,obj.height)
+	obj.Shape=gen_Prismenstumpf(obj.count,obj.size_bottom,obj.height)
 
 #---------------------------------- wozu dies #+#
     def getSubVolume(self,obj,extension=10000):

@@ -301,9 +301,10 @@ static char * school_xpm[] = {
                          'Draft_Snap_Extension','Draft_Snap_Near','Draft_Snap_Ortho',
                          'Draft_Snap_Dimensions']
 
-        self.appendToolbar("Schul Werkzeuge",self.schooltools)
-        self.appendMenu("&Schule1",self.utilities)
-        self.appendMenu(["Schule2"],self.schooltools)
+        FreeCAD.t=self.appendToolbar("Schul Werkzeuge",self.schooltools)
+        
+#        self.appendMenu("&Schule1",self.utilities)
+        self.appendMenu(["Schule"],self.schooltools)
         self.appendToolbar(translate("arch","Draft tools"),self.drafttools)
 #        self.appendToolbar(translate("arch","Draft mod tools"),self.draftmodtools)
 	if 0:
@@ -348,3 +349,9 @@ static char * school_xpm[] = {
 FreeCADGui.addWorkbench(SchoolWorkbench)
 
 
+
+
+
+
+
+ 

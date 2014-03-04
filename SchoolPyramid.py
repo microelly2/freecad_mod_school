@@ -46,6 +46,10 @@ __url__ = "http://www.freecadbuch.de"
 
 #---------------------
 
+def say(s):
+		FreeCAD.Console.PrintMessage(str(s)+"\n")
+
+
 def vieleck(anz,size,hoehe): # regelmaesiges vieleck berechnen
 	list1=[]
 	for p in range(anz):
@@ -102,11 +106,14 @@ class _CommandPyramid:
 	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/pyramid.svg', 'MenuText': 'Pyramide', 'ToolTip': 'Erzeugt eine Pyramide fuer eine Grundflaeche'} 
 
     def Activated(self):
-        FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
-        FreeCADGui.doCommand("import School")
-        FreeCADGui.doCommand("School.makePyramid()")
-        FreeCAD.ActiveDocument.commitTransaction()
-        FreeCAD.ActiveDocument.recompute()
+	if FreeCADGui.ActiveDocument:
+		FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
+		FreeCADGui.doCommand("import School")
+		FreeCADGui.doCommand("School.makePyramid()")
+		FreeCAD.ActiveDocument.commitTransaction()
+		FreeCAD.ActiveDocument.recompute()
+	else:
+		say("Erst Arbeitsbereich oeffnen")
 	return
        
 class _Pyramid(ArchComponent.Component):
