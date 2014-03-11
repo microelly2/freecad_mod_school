@@ -42,30 +42,30 @@
      id="namedview86"
      showgrid="false"
      inkscape:zoom="1.1588448"
-     inkscape:cx="-50.912773"
+     inkscape:cx="-347.76012"
      inkscape:cy="95"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
   <rect
-     style="fill:#ffffff;fill-opacity:1"
+     style="fill:#ffffff;fill-opacity:0"
      id="rect3835"
      width="358.11526"
-     height="296.84735"
+     height="305.47662"
      x="-77.663551"
      y="-52.788162" />
   <g
      id="g4"
-     transform="translate(0,-40)" />
+     transform="matrix(1,0,0,1.0290698,0,-39.628251)" />
   <path
-     d="m 10,-30 257,0 0,170 -257,0 0,-170 z"
-     style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+     d="m 10,-29.337553 257,0 0,174.941863 -257,0 0,-174.941863 z"
+     style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:none"
      id="path6"
      inkscape:connector-curvature="0" />
   <g
      id="g8"
-     transform="translate(-73.34891,-31.370717)">
+     transform="matrix(1.3160204,0,0,1.1485859,-114.6689,-46.317577)">
     <line
        x1="161.87801"
        y1="109.895"
@@ -297,7 +297,7 @@
      style="fill:#ffffff;fill-opacity:1"
      id="rect3837"
      width="18.984425"
-     height="11.218068"
+     height="11.544175"
      x="212.28038"
-     y="-6.1900311" />
+     y="-4.8354344" />
 </svg>

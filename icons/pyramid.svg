@@ -14,7 +14,7 @@
    height="80"
    id="svg3471"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="pyramide.svg">
+   sodipodi:docname="pyramid.svg">
   <metadata
      id="metadata3559">
     <rdf:RDF>
@@ -42,7 +42,7 @@
      id="namedview3555"
      showgrid="false"
      inkscape:zoom="2.3176895"
-     inkscape:cx="43.793614"
+     inkscape:cx="-50.912774"
      inkscape:cy="95"
      inkscape:window-x="65"
      inkscape:window-y="24"
@@ -50,7 +50,7 @@
      inkscape:current-layer="svg3471"
      borderlayer="true" />
   <rect
-     style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      id="rect3561"
      width="264.91901"
      height="244.20872"
@@ -60,7 +60,7 @@
      id="g3473"
      transform="translate(0,-110)" />
   <path
-     d="m 10,-100 257,0 0,170 -257,0 0,-170 z"
+     d="m 139.87072,-177.66355 257,0 0,169.9999971 -257,0 0,-169.9999971 z"
      style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
      id="path3475"
      inkscape:connector-curvature="0" />
