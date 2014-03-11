@@ -102,6 +102,13 @@ class _CommandPrism:
 	App=FreeCAD
 	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
 
+    def IsActive(self):
+        if FreeCADGui.ActiveDocument:
+            return True
+        else:
+            return False
+
+
     def Activated(self):
 		if FreeCADGui.ActiveDocument:
 			FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Prism"))

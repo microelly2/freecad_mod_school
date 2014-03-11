@@ -105,6 +105,13 @@ class _CommandPyramid:
 	App=FreeCAD
 	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/pyramid.svg', 'MenuText': 'Pyramide', 'ToolTip': 'Erzeugt eine Pyramide fuer eine Grundflaeche'} 
 
+    def IsActive(self):
+        if FreeCADGui.ActiveDocument:
+            return True
+        else:
+            return False
+
+
     def Activated(self):
 	if FreeCADGui.ActiveDocument:
 		FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Pyramid"))
