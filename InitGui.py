@@ -268,76 +268,37 @@ static char * school_xpm[] = {
     def Initialize(self):
         import DraftTools,DraftGui,Arch_rc,Arch,Draft_rc
         from DraftTools import translate
-	import School
+        import School
+        import Part,PartGui
 
         # school tools
         self.schooltools = [ 	
-				"School_Pyramid", "School_Prism"
-
-			]
-        self.utilities = [
-			
-				"School_Prism"
-			]
-
+				"Part_Box","Part_Cylinder","Part_Torus",
+				"School_Pyramid", "School_Prism",
+				 "Part_Fuse", "Part_Common", "Part_Cut",
+				 "Draft_Text","Draft_ShapeString","Draft_Dimension",
+				 "Draft_Array","Draft_PathArray","Draft_Clone",
+				 "Draft_Upgrade", "Draft_Downgrade",
+				 "Draft_Move","Draft_Rotate","Draft_Offset"
+		]
+		
         # draft tools
         self.drafttools = ["Draft_Line","Draft_Wire","Draft_Circle","Draft_Arc","Draft_Ellipse",
                         "Draft_Polygon","Draft_Rectangle", "Draft_Text",
                         "Draft_Dimension", "Draft_BSpline","Draft_Point","Draft_ShapeString",
                         "Draft_Facebinder"]
-        self.draftmodtools = ["Draft_Move","Draft_Rotate","Draft_Offset",
-                        "Draft_Trimex", "Draft_Upgrade", "Draft_Downgrade", "Draft_Scale",
-                        "Draft_Drawing","Draft_Shape2DView","Draft_Draft2Sketch","Draft_Array",
-                        "Draft_PathArray","Draft_Clone"]
-        self.extramodtools = ["Draft_WireToBSpline","Draft_AddPoint","Draft_DelPoint"]
-        self.draftcontexttools = ["Draft_ApplyStyle","Draft_ToggleDisplayMode","Draft_AddToGroup",
-                            "Draft_SelectGroup","Draft_SelectPlane",
-                            "Draft_ShowSnapBar","Draft_ToggleGrid","Draft_UndoLine",
-                            "Draft_FinishLine","Draft_CloseLine"]
-        self.draftutils = ["Draft_Heal","Draft_FlipDimension"]
-        self.snapList = ['Draft_Snap_Lock','Draft_Snap_Midpoint','Draft_Snap_Perpendicular',
-                         'Draft_Snap_Grid','Draft_Snap_Intersection','Draft_Snap_Parallel',
-                         'Draft_Snap_Endpoint','Draft_Snap_Angle','Draft_Snap_Center',
-                         'Draft_Snap_Extension','Draft_Snap_Near','Draft_Snap_Ortho',
-                         'Draft_Snap_Dimensions']
 
         FreeCAD.t=self.appendToolbar("Schul Werkzeuge",self.schooltools)
-        
-#        self.appendMenu("&Schule1",self.utilities)
         self.appendMenu(["Schule"],self.schooltools)
-        self.appendToolbar(translate("arch","Draft tools"),self.drafttools)
-#        self.appendToolbar(translate("arch","Draft mod tools"),self.draftmodtools)
-	if 0:
-		self.appendMenu(translate("arch","&Draft"),self.drafttools+self.draftmodtools+self.extramodtools)
-		self.appendMenu([translate("arch","&Draft"),translate("arch","Context Tools")],self.draftcontexttools)
-		self.appendMenu([translate("arch","&Draft"),translate("arch","Utilities")],self.draftutils)
-		## self.appendMenu([translate("arch","&Draft"),translate("arch","Snapping")],self.snapList)
-		FreeCADGui.addIconPath(":/icons")
-		FreeCADGui.addLanguagePath(":/translations")
-		FreeCADGui.addPreferencePage(":/ui/archprefs-base.ui","Arch")
-		FreeCADGui.addPreferencePage(":/ui/archprefs-import.ui","Arch")
-		if hasattr(FreeCADGui,"draftToolBar"):
-		    if not hasattr(FreeCADGui.draftToolBar,"loadedPreferences"):
-		        FreeCADGui.addPreferencePage(":/ui/userprefs-base.ui","Draft")
-		        FreeCADGui.addPreferencePage(":/ui/userprefs-visual.ui","Draft")
-		        FreeCADGui.addPreferencePage(":/ui/userprefs-import.ui","Draft")
-		        FreeCADGui.draftToolBar.loadedPreferences = True
+        
+        #self.appendToolbar(translate("arch","Schul Werkzeuge"),self.parttools)
+        
         Log ('Loading School module... done\n')
 
     def Activated(self):
-        if hasattr(FreeCADGui,"draftToolBar"):
-            FreeCADGui.draftToolBar.Activated()
-        if hasattr(FreeCADGui,"Snapper"):
-            # FreeCADGui.Snapper.show()
-	    pass
         Msg("School workbench activated\n")
                 
     def Deactivated(self):
-        if hasattr(FreeCADGui,"draftToolBar"):
-            FreeCADGui.draftToolBar.Deactivated()
-        if hasattr(FreeCADGui,"Snapper"):
-            # FreeCADGui.Snapper.hide()
-            pass
         Msg("School workbench deactivated\n")
 
     def ContextMenu(self, recipient):
