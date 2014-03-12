@@ -269,17 +269,49 @@ static char * school_xpm[] = {
         import DraftTools,DraftGui,Arch_rc,Arch,Draft_rc
         from DraftTools import translate
         import School
-        import Part,PartGui
+        import Part,PartGui,Sketcher
+        
+        import DrawingGui
+        import PartDesignGui
+ #       import PartDesign
+        
 
         # school tools
         self.schooltools = [ 	
+				"School_Mod_Tool",
+				"School_Mod_Base","School_Mod_Members",
 				"Part_Box","Part_Cylinder","Part_Torus",
 				"School_Pyramid", "School_Prism",
+				"Part_Loft","Part_Sweep",
+				# from Part Design
+				"PartDesign_Pad","PartDesign_Pocket","PartDesign_Revolution","PartDesign_Groove",
+				
+				# from Sketcher
+				"Sketcher_NewSketch","Sketcher_MapSketch","Sketcher_LeaveSketch",
+				# from CommandCreateGeo.cpp
+				"Sketcher_CreateLine","Sketcher_CreateRectangle","Sketcher_CreatePolyline","Sketcher_CreateCircle",
+				"Sketcher_CreatePoint","Sketcher_External",
+				# "Sketcher_CreateText","Sketcher_CreateDraftLine",
+				"Sketcher_CreateFillet",
+				"Sketcher_Trimming","Sketcher_External",
+				# from CommandConstraints.cpp
+				"Sketcher_ConstrainHorizontal","Sketcher_ConstrainVertical","Sketcher_ConstrainLock","Sketcher_ConstrainCoincident",
+				"Sketcher_ConstrainDistance","Sketcher_ConstrainPointOnObject","Sketcher_ConstrainDistanceX","Sketcher_ConstrainDistanceY",
+				"Sketcher_ConstrainParallel","Sketcher_ConstrainPerpendicular","Sketcher_ConstrainTangent","Sketcher_ConstrainRadius",
+				"Sketcher_ConstrainAngle","Sketcher_ConstrainEqual","Sketcher_ConstrainSymmetric",
+				
+				# Drawing 
+				"Drawing_NewPage","Drawing_OrthoViews","Drawing_NewView","Drawing_ExportPage",
+
 				 "Part_Fuse", "Part_Common", "Part_Cut",
 				 "Draft_Text","Draft_ShapeString","Draft_Dimension",
-				 "Draft_Array","Draft_PathArray","Draft_Clone",
+				 "Draft_Array",
+				 #"Draft_PathArray",
+				 "Draft_Clone",
 				 "Draft_Upgrade", "Draft_Downgrade",
-				 "Draft_Move","Draft_Rotate","Draft_Offset"
+				 "Draft_Move","Draft_Rotate",
+				 #"Draft_Offset"
+				 "Draft_Drawing","Draft_Shape2DView","Draft_Draft2Sketch"
 		]
 		
         # draft tools

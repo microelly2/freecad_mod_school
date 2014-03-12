@@ -32,4 +32,4 @@ if FreeCAD.GuiUp:
 
 from SchoolPyramid import *
 from SchoolPrism import *
-
+from SchoolTools import *
