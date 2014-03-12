@@ -280,6 +280,8 @@ static char * school_xpm[] = {
         self.schooltools = [ 	
 				# from Part Design
 				"PartDesign_Pad","PartDesign_Pocket","PartDesign_Revolution","PartDesign_Groove",
+				"Part_Loft","Part_Sweep",
+
 				
 				
 
@@ -288,7 +290,6 @@ static char * school_xpm[] = {
         self.genericparts=[
 				"Part_Box","Part_Cylinder","Part_Torus",
 				"School_Pyramid", "School_Prism",
-				"Part_Loft","Part_Sweep",
 				 "Draft_Text","Draft_ShapeString","Draft_Dimension",
 		]
 		
@@ -347,15 +348,15 @@ static char * school_xpm[] = {
         FreeCAD.t=self.appendToolbar("2D Zeichnung",self.drawing)
         FreeCAD.t=self.appendToolbar("Positionierung",self.transforms)
         
-        
-        self.appendMenu(["Auspraegungen"],self.schooltools)
+        self.appendMenu(["Grundkoerper"],self.genericparts)
+        self.appendMenu(["Positionierung"],self.transforms)
+       
         
         self.appendMenu(["Mengen"],self.booloptools)
-        self.appendMenu(["Grundkoerper"],self.genericparts)
         self.appendMenu(["Skizzen"],self.sketcher)
-        self.appendMenu(["Skizzeneinschraenkungen"],self.sketcherconstraints)
-        self.appendMenu(["2D Zeichnung"],self.drawing)
-        self.appendMenu(["Positionierung"],self.transforms)
+        self.appendMenu(["Einschraenkungen"],self.sketcherconstraints)
+        self.appendMenu(["Auspraegungen"],self.schooltools)
+        self.appendMenu(["2D Ableitung"],self.drawing)
         
         #self.appendToolbar(translate("arch","Schul Werkzeuge"),self.parttools)
         
