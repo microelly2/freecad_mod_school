@@ -45,6 +45,15 @@ __author__ = "thomas gundermann"
 __url__ = "http://www.freecadbuch.de"
 
 #---------------------
+
+
+from PyQt4 import QtCore, QtGui
+
+def errorDialog(msg):
+    diag = QtGui.QMessageBox(QtGui.QMessageBox.Information,"Fehler ",msg )
+    diag.exec_()
+
+
 def say(s):
 		FreeCAD.Console.PrintMessage(str(s)+"\n")
 
@@ -181,11 +190,38 @@ class _CommandModTool:
 
 
     def Activated(self):
-		say("sorry, not implemented yet")
+
 		if FreeCADGui.ActiveDocument:
 			FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Prism"))
-#			FreeCADGui.doCommand("import School")
-#			FreeCADGui.doCommand("School.makePrism()")
+
+			t=FreeCADGui.Selection.getSelection()
+			if len(t)<>2:
+				errorDialog("Zwei Objekte auswaehlen!")
+				raise NameError("Anzahl selektierter Objekte muss 2 sein"  )	
+			try:
+				b=t[0].Tool
+				g=FreeCADGui.ActiveDocument
+				tt=g.getObject(b.Name)
+				tt.Visibility=True
+				t[0].Tool=t[1]
+			except:
+			#	try:
+				if 1:
+					h=t[0].Shapes
+					b=h.pop(1)
+					FreeCAD.t=b
+					say(b.Label)
+					g=FreeCADGui.ActiveDocument
+					tt=g.getObject(b.Name)
+					tt.Visibility=True
+					h.append(t[1])
+					t[0].Shapes=h
+
+			#	except:
+			#		errorDialog("Erstes Objekt muss ein  Cut, Intersection-Objekt mit Base-Attribut sein ")
+			#		raise NameError("Erstes Objekt muss ein Fusion, Cut, Intersection-Objekt mit Base-Attribut sein ")
+
+
 			FreeCAD.ActiveDocument.commitTransaction()
 			FreeCAD.ActiveDocument.recompute()
 		else:
@@ -208,16 +244,46 @@ class _CommandModBase:
 
 
     def Activated(self):
-		say("sorry, not implemented yet")
+
 		if FreeCADGui.ActiveDocument:
 			FreeCAD.ActiveDocument.openTransaction(translate("Arch","Create Prism"))
 #			FreeCADGui.doCommand("import School")
 #			FreeCADGui.doCommand("School.makePrism()")
+#----------------------------
+
+			t=FreeCADGui.Selection.getSelection()
+			if len(t)<>2:
+				errorDialog("Zwei Objekte auswaehlen!")
+				raise NameError("Anzahl selektierter Objekte muss 2 sein"  )
+
+			try:
+				b=t[0].Base
+				g=FreeCADGui.ActiveDocument
+				tt=g.getObject(b.Name)
+				tt.Visibility=True
+				t[0].Base=t[1]
+			except:
+				try:
+					h=t[0].Shapes
+					b=h.pop(0)
+					say(b.Label)
+					g=FreeCADGui.ActiveDocument
+					tt=g.getObject(b.Name)
+					tt.Visibility=True
+					h.append(t[1])
+					t[0].Shapes=h
+				except:
+					errorDialog("Erstes Objekt muss ein  Cut, Intersection-Objekt mit Base-Attribut sein ")
+					raise NameError("Erstes Objekt muss ein Fusion, Cut, Intersection-Objekt mit Base-Attribut sein ")
+
+
+#-------------------------------
+
 			FreeCAD.ActiveDocument.commitTransaction()
 			FreeCAD.ActiveDocument.recompute()
 		else:
 			pass
-			#say("Erst Arbeitsbereich oeffnen")
+			say("Erst Arbeitsbereich oeffnen")
 		return
 
 
