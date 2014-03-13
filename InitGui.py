@@ -278,8 +278,6 @@ static char * school_xpm[] = {
 
         # school tools
         self.schooltools = [ 	
-        "Std_Placement",
-        "Std_Alignment",
         
 				# from Part Design
 				"PartDesign_Pad","PartDesign_Pocket","PartDesign_Revolution","PartDesign_Groove",
@@ -305,6 +303,7 @@ static char * school_xpm[] = {
 				 #"Draft_PathArray",
 				 "Draft_Clone",
 				 "Draft_Upgrade", "Draft_Downgrade",
+				 "School_Unfold"
 		]
         self.sketcher=[
 				# from Sketcher
@@ -332,6 +331,9 @@ static char * school_xpm[] = {
         ]
         
         self.transforms = [
+                "Std_Placement",
+				"Std_Alignment",
+
 				 "Draft_Move","Draft_Rotate",
 			 #"Draft_Offset"
         ]
@@ -342,6 +344,19 @@ static char * school_xpm[] = {
                         "Draft_Polygon","Draft_Rectangle", "Draft_Text",
                         "Draft_Dimension", "Draft_BSpline","Draft_Point","Draft_ShapeString",
                         "Draft_Facebinder"]
+
+        from PySide import QtGui
+        mw=FreeCADGui.getMainWindow()
+        a=mw.findChild(QtGui.QAction,"Std_Alignment")
+        a.setText("Ausrichten")
+        a.setShortcut("CTRL+A")
+        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/icon2.svg'))
+
+        a=mw.findChild(QtGui.QAction,"Std_Placement")
+        a.setText("Positionieren")
+        a.setShortcut("CTRL+L")
+        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/icon1.svg'))
+
 
         FreeCAD.t=self.appendToolbar("Auspraegungen",self.schooltools)
         FreeCAD.t=self.appendToolbar("Mengenoperationen",self.booloptools)

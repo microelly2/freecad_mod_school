@@ -319,6 +319,10 @@ class _CommandModMembers:
 
 
 
+
+
+
+
 if FreeCAD.GuiUp:
     FreeCADGui.addCommand('School_Mod_Base',_CommandModBase())
     FreeCADGui.addCommand('School_Mod_Tool',_CommandModTool())

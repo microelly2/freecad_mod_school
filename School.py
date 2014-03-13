@@ -30,6 +30,7 @@ if FreeCAD.GuiUp:
 	import FreeCADGui
 	FreeCADGui.updateLocale()
 
+from SchoolTools import *
 from SchoolPyramid import *
 from SchoolPrism import *
-from SchoolTools import *
+from SchoolUnfold import *
