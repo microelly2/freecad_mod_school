@@ -278,6 +278,9 @@ static char * school_xpm[] = {
 
         # school tools
         self.schooltools = [ 	
+        "Std_Placement",
+        "Std_Alignment",
+        
 				# from Part Design
 				"PartDesign_Pad","PartDesign_Pocket","PartDesign_Revolution","PartDesign_Groove",
 				"Part_Loft","Part_Sweep",
