@@ -352,12 +352,12 @@ static char * school_xpm[] = {
         a=mw.findChild(QtGui.QAction,"Std_Alignment")
         a.setText("Ausrichten")
         a.setShortcut("CTRL+A")
-        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/icon2.svg'))
+        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/allign.svg'))
 
         a=mw.findChild(QtGui.QAction,"Std_Placement")
         a.setText("Positionieren")
         a.setShortcut("CTRL+L")
-        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/icon1.svg'))
+        a.setIcon(        QtGui.QIcon( FreeCAD.getHomePath() +'/Mod/School/icons/placement.svg'))
 
 
         FreeCAD.t=self.appendToolbar("Auspraegungen",self.schooltools)

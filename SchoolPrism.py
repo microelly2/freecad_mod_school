@@ -62,7 +62,7 @@ def vieleck(anz,size,hoehe): # regelmaesiges vieleck berechnen
 #	say(list1)
 	return list1
 
-def gen_Prismenstumpf(count=8,size_bottom = 60,  height=60):
+def gen_Prismenstumpf(count=6,size_bottom = 5,  height=10):
 
 	list1=vieleck(count,size_bottom,0)
 	list2=vieleck(count,size_bottom,height)
@@ -85,7 +85,7 @@ def gen_Prismenstumpf(count=8,size_bottom = 60,  height=60):
 	return mySolid
 
 #----------------------
-def makePrism(count=8,size_bottom = 60, height=60,name=translate("Arch","Prism")):
+def makePrism(count=6,size_bottom = 5, height=10,name=translate("Arch","Prism")):
     '''makePrism(baseobj,[facenr],[angle],[name]) : Makes a Prism based on a
     regular polygon with count(8) vertexes face and a name (default
     = Prism).'''
