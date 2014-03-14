@@ -289,7 +289,7 @@ static char * school_xpm[] = {
 			]
 			
         self.genericparts=[
-				"Part_Box","Part_Cylinder","Part_Torus",
+				"Part_Box","Part_Cylinder","Part_Torus","Part_Cone","Part_Sphere",
 				"School_Pyramid", "School_Prism",
 				 "Draft_Text","Draft_ShapeString","Draft_Dimension",
 		]
@@ -311,7 +311,9 @@ static char * school_xpm[] = {
 				# from CommandCreateGeo.cpp
 				"Sketcher_CreateLine","Sketcher_CreateRectangle","Sketcher_CreatePolyline","Sketcher_CreateCircle",
 				"Sketcher_CreatePoint","Sketcher_External","Sketcher_CreateArc",
-				# "Sketcher_CreateText","Sketcher_CreateDraftLine",
+				# "Sketcher_CreateText",
+				# "Sketcher_CreateDraftLine",
+				"Sketcher_ToggleConstruction",
 				"Sketcher_CreateFillet",
 				"Sketcher_Trimming","Sketcher_External",
 				"Draft_Draft2Sketch"
