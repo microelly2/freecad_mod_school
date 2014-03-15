@@ -85,7 +85,7 @@ def gen_Prismenstumpf(count=6,size_bottom = 5,  height=10):
 	return mySolid
 
 #----------------------
-def makePrism(count=6,size_bottom = 5, height=10,name=translate("Arch","Prism")):
+def makePrism(count=6,size_bottom = 4, height=10,name=translate("Arch","Prism")):
     '''makePrism(baseobj,[facenr],[angle],[name]) : Makes a Prism based on a
     regular polygon with count(8) vertexes face and a name (default
     = Prism).'''

@@ -86,7 +86,7 @@ def gen_pyramidenstumpf(count=8,size_bottom = 60, size_top=20, height=60):
 	return mySolid
 
 #----------------------
-def makePyramid(count=6,size_bottom = 5, size_top=2, height=10,name=translate("Arch","Pyramid")):
+def makePyramid(count=6,size_bottom = 4, size_top=2, height=10,name=translate("Arch","Pyramid")):
     '''makePyramid(baseobj,[facenr],[angle],[name]) : Makes a Pyramid based on a
     regular polygon with count(8) vertexes face and a name (default
     = Pyramid).'''
