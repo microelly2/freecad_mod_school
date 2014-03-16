@@ -309,7 +309,7 @@ static char * school_xpm[] = {
 				# from Sketcher
 				"Sketcher_NewSketch","Sketcher_MapSketch","Sketcher_LeaveSketch",
 				# from CommandCreateGeo.cpp
-				"Sketcher_CreateLine","Sketcher_CreateRectangle","Sketcher_CreatePolyline","Sketcher_CreateCircle",
+				"Sketcher_CreateLine","Sketcher_CreateRectangle","Sketcher_CreatePolyline","Sketcher_CreateCircle","Sketcher_Create3PointArc",
 				"Sketcher_CreatePoint","Sketcher_External","Sketcher_CreateArc",
 				# "Sketcher_CreateText",
 				# "Sketcher_CreateDraftLine",
