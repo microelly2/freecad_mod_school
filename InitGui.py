@@ -274,7 +274,8 @@ static char * school_xpm[] = {
         import DrawingGui
         import PartDesignGui
  #       import PartDesign
-        
+        import wellplacedsketch
+	
 
         # school tools
         self.schooltools = [ 	
@@ -335,8 +336,10 @@ static char * school_xpm[] = {
         self.transforms = [
                 "Std_Placement",
 				"Std_Alignment",
+				
 
 				 "Draft_Move","Draft_Rotate",
+				 ' wellPlacedSketch'
 			 #"Draft_Offset"
         ]
         
