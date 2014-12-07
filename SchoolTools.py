@@ -28,7 +28,7 @@ def say(s):
 import FreeCAD,Draft,ArchComponent, DraftVecUtils
 from FreeCAD import Vector
 import math
-import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PySide
 from math import sqrt, pi, sin, cos, asin
 from FreeCAD import Base
 
@@ -47,7 +47,7 @@ __url__ = "http://www.freecadbuch.de"
 #---------------------
 
 
-from PyQt4 import QtCore, QtGui
+from PySide import QtCore, QtGui
 
 def errorDialog(msg):
     diag = QtGui.QMessageBox(QtGui.QMessageBox.Information,"Fehler ",msg )
@@ -108,8 +108,8 @@ def makePrism(count=8,size_bottom = 60, height=60,name=translate("Arch","Prism")
 class _CommandPrism:
     "the School Prism command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
+
+		return {'Pixmap' :  'Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
 
     def IsActive(self):
         if FreeCADGui.ActiveDocument:
@@ -178,8 +178,8 @@ class _ViewProviderPrism(ArchComponent.ViewProviderComponent):
 class _CommandModTool:
     "the School Modify Tool command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/mod_tool.svg', 'MenuText': 'Mod Tool', 'ToolTip': 'Aendert Tool eines Cut'} 
+		return {'Pixmap' :  'Mod/School/icons/mod_tool.svg', 'MenuText': 'Mod Tool', 'ToolTip': 'Aendert Tool eines Cut'} 
+
 
     def IsActive(self):
         return True
@@ -202,7 +202,7 @@ class _CommandModTool:
 				b=t[0].Tool
 				g=FreeCADGui.ActiveDocument
 				tt=g.getObject(b.Name)
-				tt.Visibility=True
+				##tt.Visibility=True
 				t[0].Tool=t[1]
 			except:
 			#	try:
@@ -213,7 +213,7 @@ class _CommandModTool:
 					say(b.Label)
 					g=FreeCADGui.ActiveDocument
 					tt=g.getObject(b.Name)
-					tt.Visibility=True
+					##tt.Visibility=True
 					h.append(t[1])
 					t[0].Shapes=h
 
@@ -232,8 +232,8 @@ class _CommandModTool:
 class _CommandModBase:
     "the School Modify Tool command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/mod_base.svg', 'MenuText': 'Mod Base', 'ToolTip': 'Aendert Base bei Cut-Objekt'} 
+		return {'Pixmap' :  '/Mod/School/icons/mod_base.svg', 'MenuText': 'Mod Base', 'ToolTip': 'Aendert Base bei Cut-Objekt'} 
+
 
     def IsActive(self):
         return True
@@ -260,7 +260,7 @@ class _CommandModBase:
 				b=t[0].Base
 				g=FreeCADGui.ActiveDocument
 				tt=g.getObject(b.Name)
-				tt.Visibility=True
+				##tt.Visibility=True
 				t[0].Base=t[1]
 			except:
 				try:
@@ -269,7 +269,7 @@ class _CommandModBase:
 					say(b.Label)
 					g=FreeCADGui.ActiveDocument
 					tt=g.getObject(b.Name)
-					tt.Visibility=True
+					##tt.Visibility=True
 					h.append(t[1])
 					t[0].Shapes=h
 				except:
@@ -324,6 +324,7 @@ class _CommandModMembers:
 
 
 if FreeCAD.GuiUp:
-    FreeCADGui.addCommand('School_Mod_Base',_CommandModBase())
-    FreeCADGui.addCommand('School_Mod_Tool',_CommandModTool())
-    FreeCADGui.addCommand('School_Mod_Members',_CommandModMembers())
+   FreeCADGui.addCommand('School_Mod_Base',_CommandModBase())
+   # FreeCADGui.addCommand('School_Mod_Tool',_CommandModTool())
+   # FreeCADGui.addCommand('School_Mod_Members',_CommandModMembers())
+   pass

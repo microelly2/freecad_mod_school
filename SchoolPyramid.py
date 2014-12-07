@@ -28,7 +28,7 @@ def say(s):
 import FreeCAD,Draft,ArchComponent, DraftVecUtils
 from FreeCAD import Vector
 import math
-import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PySide
 from math import sqrt, pi, sin, cos, asin
 from FreeCAD import Base
 
@@ -102,8 +102,7 @@ def makePyramid(count=6,size_bottom = 4, size_top=2, height=10,name=translate("A
 class _CommandPyramid:
     "the School Pyramid command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/pyramid.svg', 'MenuText': 'Pyramide', 'ToolTip': 'Erzeugt eine Pyramide fuer eine Grundflaeche'} 
+		return {'Pixmap' :  'Mod/School/icons/pyramid.svg', 'MenuText': 'Pyramide', 'ToolTip': 'Erzeugt eine Pyramide fuer eine Grundflaeche'} 
 
     def IsActive(self):
         if FreeCADGui.ActiveDocument:

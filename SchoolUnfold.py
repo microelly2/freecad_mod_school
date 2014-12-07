@@ -28,7 +28,7 @@ def say(s):
 import FreeCAD,Draft,ArchComponent, DraftVecUtils
 from FreeCAD import Vector
 import math
-import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PySide
 from math import sqrt, pi, sin, cos, asin
 from FreeCAD import Base
 
@@ -75,8 +75,8 @@ def say(s):
 # Macro unfoldBox
 #     Unroll of a ruled surface
 #####################################
-import FreeCAD , FreeCADGui , Part, Draft, math, Drawing , PyQt4, os
-from PyQt4 import QtGui,QtCore
+import FreeCAD , FreeCADGui , Part, Draft, math, Drawing , PySide, os
+from PySide import QtGui,QtCore
 from FreeCAD import Base
 fields_l = [] 
 unroll_l = [] 
@@ -92,7 +92,7 @@ unroll_l = []
 #####################################
 def errorDialog(msg):
     diag = QtGui.QMessageBox(QtGui.QMessageBox.Critical,u"Error Message",msg )
-    diag.setWindowFlags(PyQt4.QtCore.Qt.WindowStaysOnTopHint)
+    diag.setWindowFlags(PySide.QtCore.Qt.WindowStaysOnTopHint)
     diag.exec_()
 
 
@@ -773,8 +773,7 @@ def myunfold():
 class _CommandUnfold:
     "the School Unfold command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/unfold.svg', 'MenuText': 'Unfold', 'ToolTip': 'Erzeugt Abwicklung fuer Flaechen'} 
+	return {'Pixmap' :  'Mod/School/icons/unfold.svg', 'MenuText': 'Unfold', 'ToolTip': 'Erzeugt Abwicklung fuer Flaechen'} 
 
     def IsActive(self):
         if FreeCADGui.ActiveDocument:

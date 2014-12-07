@@ -274,8 +274,9 @@ static char * school_xpm[] = {
         import DrawingGui
         import PartDesignGui
  #       import PartDesign
-        import wellplacedsketch
+#++#        import wellplacedsketch
 	
+
 
         # school tools
         self.schooltools = [ 	
@@ -297,8 +298,8 @@ static char * school_xpm[] = {
 		
         self.booloptools=[
 				 "Part_Fuse", "Part_Common", "Part_Cut",
-				"School_Mod_Tool",
-				"School_Mod_Base",
+				#"School_Mod_Tool",
+				#"School_Mod_Base",
 				# "School_Mod_Members",
 				 "Draft_Array",
 				 #"Draft_PathArray",

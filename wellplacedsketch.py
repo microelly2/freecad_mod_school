@@ -24,7 +24,7 @@
 import FreeCAD
 import FreeCADGui
 import Part
-from PyQt4 import QtGui, QtCore
+from PySide import QtGui, QtCore
 
 from numpy import *
 from math import sqrt

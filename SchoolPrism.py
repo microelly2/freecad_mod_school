@@ -29,7 +29,7 @@ def say(s):
 import FreeCAD,Draft,ArchComponent, DraftVecUtils
 from FreeCAD import Vector
 import math
-import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PySide
 from math import sqrt, pi, sin, cos, asin
 from FreeCAD import Base
 
@@ -100,8 +100,7 @@ def makePrism(count=6,size_bottom = 4, height=10,name=translate("Arch","Prism"))
 class _CommandPrism:
     "the School Prism command definition"
     def GetResources(self): 
-	App=FreeCAD
-	return {'Pixmap' :  App.getHomePath() +'/Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
+	return {'Pixmap' :  'Mod/School/icons/prism.svg', 'MenuText': 'Prisme', 'ToolTip': 'Erzeugt eine Prisme fuer eine Grundflaeche'} 
 
     def IsActive(self):
         if FreeCADGui.ActiveDocument:
@@ -159,12 +158,14 @@ class _ViewProviderPrism(ArchComponent.ViewProviderComponent):
 # 		
         ArchComponent.ViewProviderComponent.__init__(self,vobj)
 
-#    def getIcon(self):
-#        import Arch_rc
-#        return ":/icons/Arch_Prism_Tree.svg"
+    def getIcon(self):
+		import Arch_rc
+#		return ":/icons/Arch_Prism_Tree.svg"
 #        #return  App.getHomePath() +"Mod/icons/Prism.svg'
-#	#return {'Pixmap' :  App.getHomePath() +'/Mod/icons/Prism.svg', 'MenuText': 'Line', 'ToolTip': 'Creates a line by clicking 2 points on the screen'} 
-
+		App=FreeCAD
+#		say(App.getHomePath() + '/Mod/School/icons/prism.svg')
+		
+		return  App.getHomePath() +'/Mod/School/icons/prism.svg'
 
 
 if FreeCAD.GuiUp:
